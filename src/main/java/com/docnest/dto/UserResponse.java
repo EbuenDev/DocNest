@@ -10,4 +10,10 @@ public class UserResponse {
     private String email;
     private Set<String> roles;
     private boolean enabled;
+    private String departmentName;
+    private String firstName;
+    private String lastName;
+    private Integer age;
+    private String gender;
+    private java.time.LocalDate dateOfBirth;
 } 

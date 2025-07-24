@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>My Profile</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+<h1>My Profile</h1>
+<div th:if="${successMessage}" style="color: green;">[[${successMessage}]]</div>
+<div th:if="${errorMessage}" style="color: red;">[[${errorMessage}]]</div>
+<form th:action="@{/profile}" th:object="${user}" method="post">
+    <label>Username: <input type="text" th:field="*{username}" disabled /></label><br/>
+    <label>Email: <input type="email" th:field="*{email}" required /></label><br/>
+    <label>First Name: <input type="text" th:field="*{firstName}" required /></label><br/>
+    <label>Last Name: <input type="text" th:field="*{lastName}" required /></label><br/>
+    <label>Age: <input type="number" th:field="*{age}" min="0" /></label><br/>
+    <label>Gender:
+        <select th:field="*{gender}">
+            <option value="">Select</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+        </select>
+    </label><br/>
+    <label>Date of Birth: <input type="date" th:field="*{dateOfBirth}" /></label><br/>
+    <label>Department: <input type="text" th:value="${user.departmentName}" disabled /></label><br/>
+    <button type="submit">Update Profile</button>
+</form>
+
+<h2>Change Password</h2>
+<form th:action="@{/profile/change-password}" method="post">
+    <label>Old Password: <input type="password" name="oldPassword" required /></label><br/>
+    <label>New Password: <input type="password" name="newPassword" required /></label><br/>
+    <button type="submit">Change Password</button>
+</form>
+
+<a th:href="@{/users}">Back to Dashboard</a>
+</body>
+</html> 

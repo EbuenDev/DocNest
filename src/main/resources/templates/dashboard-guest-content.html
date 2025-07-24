@@ -1,0 +1,16 @@
+<div th:fragment="content">
+    <h2>Welcome, Guest <span th:text="${user?.lastName ?: ''}">Guest</span>!</h2>
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card mb-3">
+                <div class="card-header">Recent Public Files</div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" th:each="f : ${publicRecentFiles}">
+                        <span th:text="${f?.title ?: 'N/A'}">File Title</span> - <span th:text="${f?.uploadedAt != null ? #temporals.format(f.uploadedAt, 'yyyy-MM-dd HH:mm') : 'N/A'}">Date</span>
+                    </li>
+                    <li class="list-group-item" th:if="${publicRecentFiles == null or #lists.isEmpty(publicRecentFiles)}">No public files available.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div> 

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Management</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+<h1>User Management</h1>
+<div th:if="${errorMessage}" style="color: red;">[[${errorMessage}]]</div>
+<a th:href="@{/users/add}">Add User</a>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Department</th>
+            <th>Roles</th>
+            <th>Enabled</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.username}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.departmentName}"></td>
+            <td th:text="${user.roles}"></td>
+            <td th:text="${user.enabled}"></td>
+            <td>
+                <a th:href="@{'/users/edit/' + ${user.id}}">Edit</a>
+                <a th:href="@{'/users/disable/' + ${user.id}}">Disable</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</body>
+</html> 
