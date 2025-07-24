@@ -18,6 +18,6 @@ public class Role {
     private RoleName name;
 
     public enum RoleName {
-        DIRECTOR, FACULTY, GUEST
+        DIRECTOR, DEAN, FACULTY, GUEST
     }
 } 

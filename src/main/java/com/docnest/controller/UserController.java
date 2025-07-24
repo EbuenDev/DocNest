@@ -32,15 +32,15 @@ public class UserController {
     // Update user profile
     @PutMapping("/{userId}")
     @PreAuthorize("hasAnyRole('DIRECTOR', 'FACULTY') or #userId == principal.id")
-    public UserResponse updateUser(@PathVariable Long userId, @RequestBody UserUpdateRequest request) {
-        return userService.updateUser(userId, request);
+    public UserResponse updateUser(@PathVariable Long userId, @RequestBody UserUpdateRequest request, Authentication authentication) {
+        return userService.updateUser(userId, request, authentication.getAuthorities());
     }
 
     // Disable user (soft delete)
     @DeleteMapping("/{userId}")
     @PreAuthorize("hasAnyRole('DIRECTOR', 'FACULTY')")
-    public void disableUser(@PathVariable Long userId) {
-        userService.disableUser(userId);
+    public void disableUser(@PathVariable Long userId, Authentication authentication) {
+        userService.disableUser(userId, authentication.getAuthorities());
     }
 
     // Get users by role

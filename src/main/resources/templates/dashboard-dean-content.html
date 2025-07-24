@@ -1,0 +1,45 @@
+<div th:fragment="content">
+    <h2>Welcome, Dean <span th:text="${user?.lastName ?: ''}">Dean</span>!</h2>
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card text-bg-primary mb-3">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Users in Department</h5>
+                    <p class="display-6" th:text="${deptUserCount ?: 0}">0</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-bg-success mb-3">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Files in Department</h5>
+                    <p class="display-6" th:text="${deptFileCount ?: 0}">0</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card mb-3">
+                <div class="card-header">Recent Department Users</div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" th:each="u : ${deptRecentUsers}">
+                        <span th:text="${u?.firstName ?: 'N/A'} + ' ' + ${u?.lastName ?: ''}">User Name</span> - <span th:text="${u?.email ?: 'N/A'}">email</span>
+                    </li>
+                    <li class="list-group-item" th:if="${deptRecentUsers == null or #lists.isEmpty(deptRecentUsers)}">No recent users.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card mb-3">
+                <div class="card-header">Recent Department Files</div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" th:each="f : ${deptRecentFiles}">
+                        <span th:text="${f?.title ?: 'N/A'}">File Title</span> - <span th:text="${f?.uploadedAt != null ? #temporals.format(f.uploadedAt, 'yyyy-MM-dd HH:mm') : 'N/A'}">Date</span>
+                    </li>
+                    <li class="list-group-item" th:if="${deptRecentFiles == null or #lists.isEmpty(deptRecentFiles)}">No recent files.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div> 

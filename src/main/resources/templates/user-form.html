@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add/Edit User</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+<h1 th:text="${formTitle}">Add User</h1>
+<form th:action="@{/users/save}" th:object="${userForm}" method="post">
+    <input type="hidden" th:if="${editMode}" name="userId" th:value="${userId}" />
+    <label>Username: <input type="text" th:field="*{username}" th:disabled="${editMode}" required /></label><br/>
+    <label>Email: <input type="email" th:field="*{email}" required /></label><br/>
+    <label>Password: <input type="password" th:field="*{password}" placeholder="(leave blank to keep current)" /></label><br/>
+    <label>First Name: <input type="text" th:field="*{firstName}" required /></label><br/>
+    <label>Last Name: <input type="text" th:field="*{lastName}" required /></label><br/>
+    <label>Age: <input type="number" th:field="*{age}" min="0" /></label><br/>
+    <label>Gender:
+        <select th:field="*{gender}">
+            <option value="">Select</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+        </select>
+    </label><br/>
+    <label>Date of Birth: <input type="date" th:field="*{dateOfBirth}" /></label><br/>
+    <div th:if="${#lists.contains(currentUserRoles.?[authority == 'ROLE_DIRECTOR'] or currentUserRoles.?[authority == 'ROLE_DEAN'], currentUserRoles.?[authority])}">
+        <label>Department:
+            <select th:field="*{departmentName}" required>
+                <option th:each="dept : ${departments}" th:value="${dept.name}" th:text="${dept.name}"></option>
+            </select>
+        </label><br/>
+        <label>Roles:<br/>
+            <span th:each="role : ${roles}">
+                <input type="checkbox" th:value="${role}" th:field="*{roles}" />
+                <span th:text="${role}"></span><br/>
+            </span>
+        </label><br/>
+    </div>
+    <button type="submit">Save</button>
+    <a th:href="@{/users}">Cancel</a>
+</form>
+</body>
+</html> 
